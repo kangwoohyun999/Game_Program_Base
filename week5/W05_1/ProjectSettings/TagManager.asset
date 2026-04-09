@@ -5,6 +5,7 @@ TagManager:
   serializedVersion: 3
   tags:
   - SHELL
+  - Target
   layers:
   - Default
   - TransparentFX

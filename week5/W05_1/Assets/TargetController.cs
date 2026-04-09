@@ -1,32 +1,22 @@
-using Tanks.Complete;
 using UnityEngine;
 
 public class TargetController : MonoBehaviour
 {
     public ParticleSystem targetExplosion;
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
-    void Start()
-    {
-        
-    }
+    public int health = 2;          // ← 여기서 1로 하면 1번, 2로 하면 2번 맞아야 폭파
 
-    // Update is called once per frame
-    void Update()
+    private void OnCollisionEnter(Collision coll)
     {
-        
-    }
-
-    private void OnCollisionEnter(Collision collision)
-    {
-        if (collision.collider.tag == "SHELL")
+        if (coll.collider.CompareTag("SHELL"))
         {
-            ParticleSystem fire = Instantiate(targetExplosion,
-                transform.position, Quaternion.identity);
-            fire.Play();
+            health--;                   // 체력 감소
 
-            Destroy(fire.gameObject, 2.0f);
-            Destroy(gameObject);
+            if (health <= 0)            // 체력 0 이하일 때만 폭파
+            {
+                ParticleSystem fire = Instantiate(targetExplosion, transform.position, Quaternion.identity);
+                fire.Play();
+                Destroy(gameObject);
+            }
         }
-
     }
 }
