@@ -19,7 +19,6 @@ public class Shooting : MonoBehaviour
     private void Update()
     {
         if (!GameManager.Instance.IsPlaying) return;
-        if (PauseUI.Instance != null && PauseUI.Instance.IsPaused) return;
         if (ResultUI.Instance != null && ResultUI.Instance.gameObject.activeSelf) return;
         if (Time.time < nextFireTime) return;
 

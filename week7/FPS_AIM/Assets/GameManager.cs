@@ -97,7 +97,11 @@ public class GameManager : MonoBehaviour
     }
 
     // ─────────────────────────────────────────────────
-    public void RegisterShot() => ShotsFired++;
+    public void RegisterShot()
+    {
+        if (!IsPlaying) return;
+        ShotsFired++;
+    }
 
     public void RegisterHit()
     {
@@ -126,7 +130,9 @@ public class GameManager : MonoBehaviour
             if (t != null) Destroy(t);
         activeTargets.Clear();
 
-        Accuracy = (ShotsFired > 0) ? (CurrentHits * 100f / ShotsFired) : 100f;
+        Accuracy = (ShotsFired > 0)
+            ? Mathf.Clamp(CurrentHits * 100f / ShotsFired, 0f, 100f)
+    :       100f;
 
         float score = Accuracy * (60f / (ElapsedTime + 1f));
         if      (score > 280) FinalRank = "Top 1%";
@@ -135,9 +141,6 @@ public class GameManager : MonoBehaviour
         else                  FinalRank = "Top 50%";
 
         ResultUI.Instance.ShowResult();
-
-        if (PauseUI.Instance != null)
-            PauseUI.Instance.ResetPauseState();
 
         // 결과 화면 커서
         Cursor.lockState = CursorLockMode.None;

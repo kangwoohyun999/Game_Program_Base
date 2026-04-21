@@ -24,7 +24,6 @@ public class MouseLook : MonoBehaviour
             return;
         }
 
-        if (PauseUI.Instance != null && PauseUI.Instance.IsPaused) return;
         if (ResultUI.Instance != null && ResultUI.Instance.gameObject.activeSelf) return;
         if (playerCamera == null) return;
 

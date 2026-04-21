@@ -22,15 +22,17 @@ public class ResultUI : MonoBehaviour
     public void ShowResult()
     {
         gameObject.SetActive(true);
-        waitingForClick = false;   // 이번 프레임 클릭은 무시
+        waitingForClick = false;
 
-        timeText.text     = $"Time : {GameManager.Instance.ElapsedTime:F2}s";
+        timeText.text = $"Time : {GameManager.Instance.ElapsedTime:F2}s";
         accuracyText.text = $"Accuracy : {GameManager.Instance.Accuracy:F1}%";
-        rankText.text     = GameManager.Instance.FinalRank;
+        rankText.text = GameManager.Instance.FinalRank;
 
-        // 결과창 표시 → 커서 보이기
         Cursor.lockState = CursorLockMode.None;
-        Cursor.visible   = true;
+        Cursor.visible = true;
+
+        if (CrosshairManager.Instance != null)
+            CrosshairManager.Instance.HideCrosshair();
     }
 
     private void Update()
@@ -44,7 +46,7 @@ public class ResultUI : MonoBehaviour
             return;
         }
 
-        if (Input.GetMouseButtonDown(0))
+        if (Input.GetKeyDown(KeyCode.R))
         {
             gameObject.SetActive(false);
             InGameUI.Instance.gameObject.SetActive(false);

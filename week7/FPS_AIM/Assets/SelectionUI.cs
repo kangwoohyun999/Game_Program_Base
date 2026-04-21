@@ -61,6 +61,9 @@ public class SelectionUI : MonoBehaviour
         ResetModeColors();
         ResetCountColors();
         if (warningText != null) warningText.text = "";
+
+        if (CrosshairManager.Instance != null)
+            CrosshairManager.Instance.HideCrosshair();
     }
 
     // ── 모드 선택 ──────────────────────────────────
@@ -92,12 +95,12 @@ public class SelectionUI : MonoBehaviour
     {
         if (selectedMode == (Mode)(-1))
         {
-            ShowWarning("모드를 선택해 주세요!");
+            ShowWarning("Select to Mode !");
             return;
         }
         if (selectedCount == 0)
         {
-            ShowWarning("타겟 수를 선택해 주세요!");
+            ShowWarning("Select to Target !");
             return;
         }
 
