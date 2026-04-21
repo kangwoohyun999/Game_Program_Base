@@ -125,7 +125,7 @@ GameObject:
   - component: {fileID: 5790447973616191997}
   - component: {fileID: 3869573135887131937}
   - component: {fileID: 7694824041584915703}
-  - component: {fileID: 5274503692779676227}
+  - component: {fileID: -4626507508131802206}
   m_Layer: 0
   m_Name: Target
   m_TagString: Target
@@ -221,11 +221,11 @@ CapsuleCollider:
     serializedVersion: 2
     m_Bits: 0
   m_LayerOverridePriority: 0
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_ProvidesContacts: 0
   m_Enabled: 1
   serializedVersion: 2
-  m_Radius: 0.5
+  m_Radius: 1
   m_Height: 2
   m_Direction: 1
   m_Center: {x: 0, y: 0, z: 0}
@@ -255,8 +255,8 @@ Rigidbody:
   m_IsKinematic: 1
   m_Interpolate: 0
   m_Constraints: 0
-  m_CollisionDetection: 0
---- !u!114 &5274503692779676227
+  m_CollisionDetection: 1
+--- !u!114 &-4626507508131802206
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -268,4 +268,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: dd09ccebc4ba18040a7d4f8b4d1cff7f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: Assembly-CSharp::Target
-  moveSpeed: 8
+  moveSpeed: 9

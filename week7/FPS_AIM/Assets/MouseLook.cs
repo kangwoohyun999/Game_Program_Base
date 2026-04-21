@@ -2,16 +2,17 @@ using UnityEngine;
 
 public class MouseLook : MonoBehaviour
 {
-    [Header("°¨µµ ¼³Á¤")]
-    public float sensitivity = 2.0f;
+    [Header("ê°ë„ ì„¤ì •")]
+    public float     sensitivity  = 2.0f;
     public Transform playerCamera;
 
     private float xRotation = 0f;
 
     private void Start()
     {
-        Cursor.lockState = CursorLockMode.Locked;
-        Cursor.visible = false;
+        // ê²Œì„ ì‹œì‘ ì „ì´ë¯€ë¡œ ì»¤ì„œ í‘œì‹œ (SelectionUIì—ì„œ ì‹œì‘)
+        Cursor.lockState = CursorLockMode.None;
+        Cursor.visible   = true;
     }
 
     private void Update()
@@ -19,19 +20,19 @@ public class MouseLook : MonoBehaviour
         if (!GameManager.Instance.IsPlaying)
         {
             Cursor.lockState = CursorLockMode.None;
-            Cursor.visible = true;
+            Cursor.visible   = true;
             return;
         }
 
-        // Pause Áß¿¡´Â Look ±İÁö
-        if (PauseUI.Instance != null && PauseUI.Instance.IsPaused)
-            return;
-
+        if (PauseUI.Instance != null && PauseUI.Instance.IsPaused) return;
+        if (ResultUI.Instance != null && ResultUI.Instance.gameObject.activeSelf) return;
         if (playerCamera == null) return;
 
-        // °¨µµ Á¶Àı
-        if (Input.GetKeyDown(KeyCode.LeftBracket)) sensitivity = Mathf.Max(0.5f, sensitivity - 0.2f);
-        if (Input.GetKeyDown(KeyCode.RightBracket)) sensitivity = Mathf.Min(10f, sensitivity + 0.2f);
+        // [ = ê°ë„ ë‚®ì¶”ê¸°,  ] = ê°ë„ ë†’ì´ê¸°
+        if (Input.GetKeyDown(KeyCode.LeftBracket))
+            sensitivity = Mathf.Max(0.5f, sensitivity - 0.2f);
+        if (Input.GetKeyDown(KeyCode.RightBracket))
+            sensitivity = Mathf.Min(10f, sensitivity + 0.2f);
 
         float mouseX = Input.GetAxis("Mouse X") * sensitivity;
         float mouseY = Input.GetAxis("Mouse Y") * sensitivity;
@@ -39,7 +40,7 @@ public class MouseLook : MonoBehaviour
         transform.Rotate(Vector3.up * mouseX);
 
         xRotation -= mouseY;
-        xRotation = Mathf.Clamp(xRotation, -90f, 90f);
+        xRotation  = Mathf.Clamp(xRotation, -90f, 90f);
         playerCamera.localRotation = Quaternion.Euler(xRotation, 0f, 0f);
     }
 }

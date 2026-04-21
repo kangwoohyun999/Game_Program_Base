@@ -2,22 +2,21 @@ using UnityEngine;
 
 public class Bullet : MonoBehaviour
 {
-    [Header("Bullet")]
-    public float speed = 120f;
+    [Header("총알 설정")]
+    public float speed    = 120f;
     public float lifeTime = 2f;
 
     private Rigidbody rb;
 
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody>();
-    }
+    private void Awake() => rb = GetComponent<Rigidbody>();
 
     private void Start()
     {
         if (rb != null)
+        {
+            rb.useGravity   = false;   // 중력 무시 (직선 비행)
             rb.linearVelocity = transform.forward * speed;
-
+        }
         Destroy(gameObject, lifeTime);
     }
 
@@ -25,11 +24,9 @@ public class Bullet : MonoBehaviour
     {
         if (other.CompareTag("Target"))
         {
-            Target target = other.GetComponent<Target>();
-            if (target != null)
-                target.Hit();
-
-            Destroy(gameObject);   // �Ѿ˵� �����
+            Target t = other.GetComponent<Target>();
+            if (t != null) t.Hit();
+            Destroy(gameObject);
         }
     }
 }
