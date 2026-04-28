@@ -10,6 +10,8 @@ public class CrosshairManager : MonoBehaviour
         Instance = this;
         if (crosshairPanel == null)
             crosshairPanel = gameObject;
+
+        HideCrosshair();
     }
 
     public void ShowCrosshair() => crosshairPanel?.SetActive(true);

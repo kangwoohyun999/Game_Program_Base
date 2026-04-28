@@ -33,6 +33,8 @@ public class ResultUI : MonoBehaviour
 
         if (CrosshairManager.Instance != null)
             CrosshairManager.Instance.HideCrosshair();
+        if (InGameUI.Instance != null)
+            InGameUI.Instance.gameObject.SetActive(false);
     }
 
     private void Update()
