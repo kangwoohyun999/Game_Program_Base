@@ -1,0 +1,86 @@
+{
+  "Version": 1,
+  "WorkspaceRootPath": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\",
+  "Documents": [
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|c:\\users\\user\\downloads\\ex10_uni-run_12_0\\assets\\scripts\\backgroundloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\backgroundloop.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|c:\\users\\user\\downloads\\ex10_uni-run_12_0\\assets\\scripts\\scrollingobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\scrollingobject.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\assets\\scripts\\platformspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\platformspawner.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\assets\\scripts\\platform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{6AD96B64-8334-7753-5813-B1D18A5FAAF7}|Assembly-CSharp.csproj|solutionrelative:assets\\scripts\\platform.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    }
+  ],
+  "DocumentGroupContainers": [
+    {
+      "Orientation": 0,
+      "VerticalTabListWidth": 256,
+      "DocumentGroups": [
+        {
+          "DockedWidth": 200,
+          "SelectedChildIndex": 0,
+          "Children": [
+            {
+              "$type": "Document",
+              "DocumentIndex": 0,
+              "Title": "BackgroundLoop.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\BackgroundLoop.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\BackgroundLoop.cs",
+              "ToolTip": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\BackgroundLoop.cs",
+              "RelativeToolTip": "Assets\\Scripts\\BackgroundLoop.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAADwvxUAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T04:34:34.702Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 1,
+              "Title": "ScrollingObject.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\ScrollingObject.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\ScrollingObject.cs",
+              "ToolTip": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\ScrollingObject.cs",
+              "RelativeToolTip": "Assets\\Scripts\\ScrollingObject.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAcAAABDAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T04:32:52.834Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "PlatformSpawner.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\PlatformSpawner.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\PlatformSpawner.cs",
+              "ToolTip": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\PlatformSpawner.cs",
+              "RelativeToolTip": "Assets\\Scripts\\PlatformSpawner.cs",
+              "ViewState": "AgIAABwAAAAAAAAAAAAuwDgAAAAhAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T04:20:44.965Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Platform.cs",
+              "DocumentMoniker": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\Platform.cs",
+              "RelativeDocumentMoniker": "Assets\\Scripts\\Platform.cs",
+              "ToolTip": "C:\\Users\\USER\\Downloads\\EX10_Uni-Run_12_0\\Assets\\Scripts\\Platform.cs",
+              "RelativeToolTip": "Assets\\Scripts\\Platform.cs",
+              "ViewState": "AgIAAAoAAAAAAAAAAAAAwB4AAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-05-08T04:14:23.392Z"
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}
