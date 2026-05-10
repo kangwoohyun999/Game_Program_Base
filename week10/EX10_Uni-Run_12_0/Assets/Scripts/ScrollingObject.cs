@@ -5,6 +5,9 @@ public class ScrollingObject : MonoBehaviour {
     public float speed = 10f; // 이동 속도
 
     private void Update() {
-        transform.Translate(Vector3.left * speed * Time.deltaTime);
+        if (!GameManager.instance.isGameover)
+        {
+            transform.Translate(Vector3.left * speed * Time.deltaTime);
+        }
     }
 }
