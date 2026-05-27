@@ -1,103 +1,153 @@
 ﻿using UnityEngine;
+using System.Collections;
 
-// 주어진 Gun 오브젝트를 쏘거나 재장전
-// 알맞은 애니메이션을 재생하고 IK를 사용해 캐릭터 양손이 총에 위치하도록 조정
-public class PlayerShooter : MonoBehaviour {
-    public Gun gun; // 사용할 총
-    public Transform gunPivot; // 총 배치의 기준점
-    public Transform leftHandMount; // 총의 왼쪽 손잡이, 왼손이 위치할 지점
-    public Transform rightHandMount; // 총의 오른쪽 손잡이, 오른손이 위치할 지점
+public enum FireMode { Single, Burst }
 
-    private PlayerInput playerInput; // 플레이어의 입력
-    private Animator playerAnimator; // 애니메이터 컴포넌트
+public class PlayerShooter : MonoBehaviour
+{
+    [Header("기본 참조")]
+    public Transform gunPivot;
+    public Transform leftHandMount;
+    public Transform rightHandMount;
 
-    public Gun currentGun;           // 현재 장착 총
-    public Gun pistol;               // Pistol 프리팹 참조
-    public Gun shotgun;              // Shotgun 프리팹 (새로 만들어야 함)
+    [Header("총기 목록")]
+    public Gun uzi;
+    public Gun shotgun;
     public Gun sniper;
 
-    private void Start() {
-        // 사용할 컴포넌트들을 가져오기
+    [Header("현재 총")]
+    public Gun currentGun;
+
+    private PlayerInput playerInput;
+    private Animator playerAnimator;
+
+    private FireMode currentFireMode = FireMode.Single;  // 기본은 단발
+    private bool isBurstFiring = false;
+
+    private void Start()
+    {
         playerInput = GetComponent<PlayerInput>();
         playerAnimator = GetComponent<Animator>();
+
+        DeactivateAllGuns();
+        EquipGun(uzi);
     }
 
-    private void OnEnable() {
-        // 슈터가 활성화될 때 총도 함께 활성화
-        gun.gameObject.SetActive(true);
-    }
-    
-    private void OnDisable() {
-        // 슈터가 비활성화될 때 총도 함께 비활성화
-        gun.gameObject.SetActive(false);
+    private void DeactivateAllGuns()
+    {
+        if (shotgun != null) shotgun.gameObject.SetActive(false);
+        if (sniper != null) sniper.gameObject.SetActive(false);
     }
 
-    private void Update() {
-        if (playerInput.fire)
+    private void Update()
+    {
+        // 총기 교체
+        if (Input.GetKeyDown(KeyCode.Alpha1)) EquipGun(uzi);
+        if (Input.GetKeyDown(KeyCode.Alpha2)) EquipGun(shotgun);
+        if (Input.GetKeyDown(KeyCode.Alpha3)) EquipGun(sniper);
+
+        // 모드 전환 : 마우스 우클릭
+        if (Input.GetMouseButtonDown(1) && currentGun == uzi)
         {
-            gun.Fire();
+            ToggleFireMode();
         }
-        else if (playerInput.reload)
+
+        // 발사 처리
+        if (playerInput.fire && currentGun != null)
         {
-            if (gun.Reload())
+            if (currentFireMode == FireMode.Single)
+            {
+                currentGun.Fire();
+            }
+            else if (currentFireMode == FireMode.Burst && !isBurstFiring)
+            {
+                StartCoroutine(BurstFireRoutine());
+            }
+        }
+
+        // 재장전
+        if (playerInput.reload && currentGun != null)
+        {
+            if (currentGun.Reload())
             {
                 playerAnimator.SetTrigger("Reload");
             }
         }
 
-
-
-        if (Input.GetKeyDown(KeyCode.Alpha1))
-        {
-            EquipGun(pistol);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha2))
-        {
-            EquipGun(shotgun);
-        }
-        else if (Input.GetKeyDown(KeyCode.Alpha3))
-        {
-            EquipGun(sniper);
-        }
-
         UpdateUI();
+    }
+
+    // 모드 전환 (우클릭)
+    private void ToggleFireMode()
+    {
+        currentFireMode = (currentFireMode == FireMode.Single) ? FireMode.Burst : FireMode.Single;
+
+        string modeName = currentFireMode == FireMode.Burst ? "3점사 모드" : "연사 모드";
+        Debug.Log($"사격 모드 변경 : {modeName}");
+
+        // 선택: UI에 모드 표시 기능 추가 가능
     }
 
     private void EquipGun(Gun newGun)
     {
+        if (newGun == null || newGun == currentGun) return;
+
         if (currentGun != null)
-        {
             currentGun.gameObject.SetActive(false);
-        }
 
         currentGun = newGun;
         currentGun.gameObject.SetActive(true);
 
-        // 필요 시 Gun Pivot 아래에 총 프리팹을 동적으로 Instantiate하는 방식도 가능
+        Debug.Log($"총기 교체 : {currentGun.name}");
     }
 
-// 탄약 UI 갱신
-private void UpdateUI() {
-        if (gun != null && UIManager.instance != null)
+    // 3점사 코루틴
+    private IEnumerator BurstFireRoutine()
+    {
+        isBurstFiring = true;
+
+        for (int i = 0; i < 3; i++)
         {
-            // UI 매니저의 탄약 텍스트에 탄창의 탄약과 남은 전체 탄약을 표시
-            UIManager.instance.UpdateAmmoText(gun.magAmmo, gun.ammoRemain);
+            if (currentGun == null) break;
+
+            if (currentGun.magAmmo > 0)
+            {
+                currentGun.Fire();
+                // Debug.Log($"Burst Shot {i + 1}/3 발사됨");
+            }
+            else
+            {
+                currentGun.Reload();
+                break;
+            }
+
+            yield return new WaitForSeconds(0.05f);   // 3점사 간격 (조정 가능)
+        }
+
+        isBurstFiring = false;
+    }
+
+    private void UpdateUI()
+    {
+        if (currentGun != null && UIManager.instance != null)
+        {
+            UIManager.instance.UpdateAmmoText(currentGun.magAmmo, currentGun.ammoRemain);
         }
     }
 
-    // 애니메이터의 IK 갱신
-    private void OnAnimatorIK(int layerIndex) {
+    private void OnAnimatorIK(int layerIndex)
+    {
+        if (currentGun == null) return;
+
         gunPivot.position = playerAnimator.GetIKHintPosition(AvatarIKHint.RightElbow);
 
-        playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1.0f);
-        playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1.0f);
-
+        playerAnimator.SetIKPositionWeight(AvatarIKGoal.LeftHand, 1f);
+        playerAnimator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1f);
         playerAnimator.SetIKPosition(AvatarIKGoal.LeftHand, leftHandMount.position);
         playerAnimator.SetIKRotation(AvatarIKGoal.LeftHand, leftHandMount.rotation);
 
-        playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1.0f);
-        playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1.0f);
-
+        playerAnimator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1f);
+        playerAnimator.SetIKRotationWeight(AvatarIKGoal.RightHand, 1f);
         playerAnimator.SetIKPosition(AvatarIKGoal.RightHand, rightHandMount.position);
         playerAnimator.SetIKRotation(AvatarIKGoal.RightHand, rightHandMount.rotation);
     }

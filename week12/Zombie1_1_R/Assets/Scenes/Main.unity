@@ -139,7 +139,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &304660388
 Transform:
   m_ObjectHideFlags: 0
@@ -15333,6 +15333,18 @@ Transform:
     type: 3}
   m_PrefabInstance: {fileID: 3173197769356476775}
   m_PrefabAsset: {fileID: 0}
+--- !u!114 &1167440783 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 5483346738647868763, guid: 7bce210f566dcc8439301ba116debd60,
+    type: 3}
+  m_PrefabInstance: {fileID: 3173197769356476775}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 93c14943f73d87543b453f3a037d7029, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: Assembly-CSharp::Gun
 --- !u!1001 &1241120026
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -30248,7 +30260,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!4 &2069820019
 Transform:
   m_ObjectHideFlags: 0
@@ -30516,6 +30528,31 @@ PrefabInstance:
       propertyPath: m_AnchorMax.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 7090989771045334502, guid: 7bce210f566dcc8439301ba116debd60,
+        type: 3}
+      propertyPath: uzi
+      value: 
+      objectReference: {fileID: 1167440783}
+    - target: {fileID: 7090989771045334502, guid: 7bce210f566dcc8439301ba116debd60,
+        type: 3}
+      propertyPath: pistol
+      value: 
+      objectReference: {fileID: 1167440783}
+    - target: {fileID: 7090989771045334502, guid: 7bce210f566dcc8439301ba116debd60,
+        type: 3}
+      propertyPath: sniper
+      value: 
+      objectReference: {fileID: 304660389}
+    - target: {fileID: 7090989771045334502, guid: 7bce210f566dcc8439301ba116debd60,
+        type: 3}
+      propertyPath: shotgun
+      value: 
+      objectReference: {fileID: 2069820020}
+    - target: {fileID: 7090989771045334502, guid: 7bce210f566dcc8439301ba116debd60,
+        type: 3}
+      propertyPath: currentGun
+      value: 
+      objectReference: {fileID: 1167440783}
     - target: {fileID: 8180242737130498538, guid: 7bce210f566dcc8439301ba116debd60,
         type: 3}
       propertyPath: m_Name
@@ -30574,12 +30611,12 @@ PrefabInstance:
     - target: {fileID: 8469986415173166478, guid: 7bce210f566dcc8439301ba116debd60,
         type: 3}
       propertyPath: m_Name
-      value: Pistol
+      value: Uzi
       objectReference: {fileID: 0}
     - target: {fileID: 8469986415173166478, guid: 7bce210f566dcc8439301ba116debd60,
         type: 3}
       propertyPath: m_IsActive
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []
@@ -30587,11 +30624,11 @@ PrefabInstance:
     - targetCorrespondingSourceObject: {fileID: 4321079545235129569, guid: 7bce210f566dcc8439301ba116debd60,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 304660388}
+      addedObject: {fileID: 2069820019}
     - targetCorrespondingSourceObject: {fileID: 4321079545235129569, guid: 7bce210f566dcc8439301ba116debd60,
         type: 3}
       insertIndex: -1
-      addedObject: {fileID: 2069820019}
+      addedObject: {fileID: 304660388}
     m_AddedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 7bce210f566dcc8439301ba116debd60, type: 3}
 --- !u!1660057539 &9223372036854775807
