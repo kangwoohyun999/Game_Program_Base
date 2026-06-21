@@ -22,15 +22,11 @@ public class PlayerMovement : MonoBehaviour
     {
         Move();
         RotateTowardsMouse();
-
-        if (playerAnimator != null)
-            playerAnimator.SetFloat("Move", playerInput.move);
     }
 
     private void Move()
     {
         // 카메라 기준 방향 계산
-        // 카메라 forward/right에서 Y축 성분 제거 후 정규화
         Vector3 camForward = mainCamera.transform.forward;
         Vector3 camRight   = mainCamera.transform.right;
         camForward.y = 0f;
@@ -43,6 +39,11 @@ public class PlayerMovement : MonoBehaviour
         Vector3 moveDistance = moveDir * moveSpeed * Time.deltaTime;
 
         playerRigidbody.MovePosition(playerRigidbody.position + moveDistance);
+
+        // WASD 전체 이동 크기로 애니메이션 설정 (좌우 포함)
+        float moveAmount = new Vector2(playerInput.rotate, playerInput.move).magnitude;
+        if (playerAnimator != null)
+            playerAnimator.SetFloat("Move", moveAmount);
     }
 
     // 마우스 커서 방향으로 회전 (레이캐스트 - 15주차)

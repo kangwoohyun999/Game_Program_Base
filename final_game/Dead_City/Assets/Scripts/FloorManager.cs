@@ -29,7 +29,8 @@ public class FloorManager : MonoBehaviour
     // 1층:2, 2층:4, 3층:6, 4층:8, 5층:10
     private int[] zombieCountPerFloor = { 2, 4, 6, 8, 10 };
 
-    // 층 클리어 후 F키 대기 상태
+    private List<Zombie> aliveZombies = new List<Zombie>();
+    private bool floorCleared = false;
     private bool waitingForNextFloor = false;
 
     private void Start()
@@ -44,7 +45,7 @@ public class FloorManager : MonoBehaviour
 
     private void Update()
     {
-        // 층 클리어 후 F키 입력 대기
+        // 층 클리어 후 F키 대기
         if (waitingForNextFloor && Input.GetKeyDown(KeyCode.F))
         {
             waitingForNextFloor = false;
@@ -55,8 +56,10 @@ public class FloorManager : MonoBehaviour
 
     public void StartFloor(int floor)
     {
-        currentFloor = floor;
+        currentFloor        = floor;
+        floorCleared        = false;
         waitingForNextFloor = false;
+        aliveZombies.Clear();
 
         UIManager.instance?.UpdateFloorText(currentFloor);
         UIManager.instance?.HideInteractHint();
@@ -64,7 +67,7 @@ public class FloorManager : MonoBehaviour
         int count = zombieCountPerFloor[Mathf.Clamp(floor - 1, 0, zombieCountPerFloor.Length - 1)];
         UIManager.instance?.UpdateZombieCount(count);
 
-        Debug.Log($"[FloorManager] {floor}층 시작 - 좀비 {count}마리 스폰 예정");
+        Debug.Log($"[FloorManager] {floor} Floor Start : {count} Zombies");
         StartCoroutine(SpawnZombies(count));
     }
 
@@ -81,16 +84,7 @@ public class FloorManager : MonoBehaviour
 
     private void SpawnZombie()
     {
-        if (zombiePrefab == null)
-        {
-            Debug.LogError("[FloorManager] zombiePrefab이 null입니다.");
-            return;
-        }
-        if (spawnPoints == null || spawnPoints.Length == 0)
-        {
-            Debug.LogError("[FloorManager] spawnPoints가 없습니다.");
-            return;
-        }
+        if (zombiePrefab == null || spawnPoints == null || spawnPoints.Length == 0) return;
 
         Transform spawnPoint = spawnPoints[Random.Range(0, spawnPoints.Length)];
         Zombie zombie = Instantiate(zombiePrefab, spawnPoint.position, spawnPoint.rotation);
@@ -99,21 +93,16 @@ public class FloorManager : MonoBehaviour
         {
             ZombieData data = zombieDatas[Random.Range(0, zombieDatas.Length)];
             ZombieData scaledData = ScriptableObject.CreateInstance<ZombieData>();
-            scaledData.health = data.health + (currentFloor - 1) * 30f;
-            scaledData.damage = data.damage + (currentFloor - 1) * 5f;
-            scaledData.speed = data.speed + (currentFloor - 1) * 0.3f;
+            scaledData.health    = data.health    + (currentFloor - 1) * 30f;
+            scaledData.damage    = data.damage    + (currentFloor - 1) * 5f;
+            scaledData.speed     = data.speed     + (currentFloor - 1) * 0.3f;
             scaledData.skinColor = data.skinColor;
             zombie.Setup(scaledData);
         }
 
         zombie.onDeath += () => OnZombieDied(zombie);
         aliveZombies.Add(zombie);
-
-        Debug.Log($"[FloorManager] Zombie Spawn : {zombie.name}");
     }
-
-    private List<Zombie> aliveZombies = new List<Zombie>();
-    private bool floorCleared = false;
 
     private void OnZombieDied(Zombie zombie)
     {
@@ -139,7 +128,7 @@ public class FloorManager : MonoBehaviour
             return;
         }
 
-        // 클리어 후 F키 안내 표시
+        // F키 안내 표시
         waitingForNextFloor = true;
         UIManager.instance?.ShowInteractHint("Press to F : Next Stage");
     }
@@ -147,8 +136,6 @@ public class FloorManager : MonoBehaviour
     public void GoToNextFloor()
     {
         if (currentFloor >= totalFloors) return;
-        floorCleared = false;
-        aliveZombies.Clear();
         StartFloor(currentFloor + 1);
     }
 }
